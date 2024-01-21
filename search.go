@@ -178,11 +178,11 @@ func url(searchTerm string, countryCode string, languageCode string, limit int, 
 
         var url string
 
-        if googleBase, found := GoogleDomains[countryCode]; found {
+        if googleBas, found := GoogleDomains[countryCode]; found {
                 if start == 0 {
-                        url = fmt.Sprintf("%s%s&hl=%s", googleBase, searchTerm, languageCode)
+                        url = fmt.Sprintf("%s%s&hl=%s", googleBas, searchTerm, languageCode)
                 } else {
-                        url = fmt.Sprintf("%s%s&hl=%s&start=%d", googleBase, searchTerm, languageCode, start)
+                        url = fmt.Sprintf("%s%s&hl=%s&start=%d", googleBas, searchTerm, languageCode, start)
                 }
         } else {
                 if start == 0 {
