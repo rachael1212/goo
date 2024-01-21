@@ -24,7 +24,7 @@ type Result struct {
 }
 
 var GoogleDomains = map[string]string{
-        "us": "",
+        "us": "https://www.google.com/search?q=",
 }
 
 type SearchOptions struct {
