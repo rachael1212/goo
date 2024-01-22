@@ -11,7 +11,7 @@ import (
         "strings"
 )
 
-var ErrBlocked = errors.New("duckduckgo block")
+var ErrBlocked = errors.New("google block")
 
 var RateLimit = rate.NewLimiter(rate.Inf, 0)
 
@@ -23,8 +23,8 @@ type Result struct {
         Description string `json:"description"`
 }
 
-var DuckDuckGoDomains = map[string]string{
-	"us": "https://www.google.com/search?q=",
+var GoogleDomains = map[string]string{
+        "us": "https://www.google.com/search?q=",
 }
 
 type SearchOptions struct {
@@ -88,7 +88,7 @@ func Search(ctx context.Context, searchTerm string, opts ...SearchOptions) ([]Re
                 //r.Headers.Set("Content-language", "en")
                 r.Headers.Set("Cookie", "CONSENT=YES+srp.gws-20210802-0-RC1.us+FX+815; 1P_JAR=2021-08-05-10")
 
-                //r.Headers.Set("Referer", "https://www.duckduckgo.com/")
+                //r.Headers.Set("Referer", "https://www.google.com/")
                 //r.Headers.Set("Sec-Fetch-Dest" , "document")
                 //r.Headers.Set("Sec-Fetch-Site", "same-origin")
                 //r.Headers.Set("Sec-Fetch-Mode", "navigate")
@@ -178,17 +178,17 @@ func url(searchTerm string, countryCode string, languageCode string, limit int, 
 
         var url string
 
-        if duckduckgoBase, found := DuckDuckGoDomains[countryCode]; found {
+        if googleBase, found := GoogleDomains[countryCode]; found {
                 if start == 0 {
-                        url = fmt.Sprintf("%s%s&hl=%s", duckduckgoBase, searchTerm, languageCode)
+                        url = fmt.Sprintf("%s%s&hl=%s", googleBase, searchTerm, languageCode)
                 } else {
-                        url = fmt.Sprintf("%s%s&hl=%s&start=%d", duckduckgoBase, searchTerm, languageCode, start)
+                        url = fmt.Sprintf("%s%s&hl=%s&start=%d", googleBase, searchTerm, languageCode, start)
                 }
         } else {
                 if start == 0 {
-                        url = fmt.Sprintf("%s%s&hl=%s", DuckDuckGoDomains["us"], searchTerm, languageCode)
+                        url = fmt.Sprintf("%s%s&hl=%s", GoogleDomains["us"], searchTerm, languageCode)
                 } else {
-                        url = fmt.Sprintf("%s%s&hl=%s&start=%d", DuckDuckGoDomains["us"], searchTerm, languageCode, start)
+                        url = fmt.Sprintf("%s%s&hl=%s&start=%d", GoogleDomains["us"], searchTerm, languageCode, start)
                 }
         }
 
